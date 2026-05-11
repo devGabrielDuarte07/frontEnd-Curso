@@ -1,0 +1,21 @@
+.body{
+    margin: 0;
+    padding: 0;
+}
+
+.Header{
+    width: 100%;
+    height: 100px;
+    background: linear-gradient(90deg, #1E78FF 0%, #0B64F5 100%);
+    color: white;
+}
+
+.cadastrarCurso{
+    padding-left: 20px;
+    padding-right: 30px;
+    width: 90%;
+    height: 200px;
+    background-color: #ffffff5d;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+}

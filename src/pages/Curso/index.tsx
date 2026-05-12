@@ -7,7 +7,7 @@ import { CursoRow } from "../../components/CursoRow";
 import { services } from "../../services/cursoService";
 import type { CursoType } from "../../types/CursoType";
 
-export default function Curso(){
+export default function Curso() {
 
     const [cursos, setCursos] = useState<CursoType[]>([]);
     const [nomeCurso, setNomeCurso] = useState("");
@@ -16,16 +16,27 @@ export default function Curso(){
     const [filtroNome, setFiltroNome] = useState("");
     const [filtroPeriodo, setFiltroPeriodo] = useState("");
     const [mostrarFiltros, setMostrarFiltros] = useState(false);
-    
+
     async function handleSearch() {
-        if(filtroNome.trim() === "") {
+        if (filtroNome.trim() === "") {
             CarregarCursos();
         } else {
             const resposta = await services.buscarCursosPorNome(filtroNome);
             setCursos(resposta);
         }
     }
+    async function handleFiltroPeriodo(periodo: string) {
+        setFiltroPeriodo(periodo);
 
+        if (periodo === "") {
+            CarregarCursos();
+            return;
+        }
+
+        const resposta = await services.buscarCursosPorPeriodo(periodo);
+
+        setCursos(resposta);
+    }
     useEffect(() => {
         handleSearch();
     }, [filtroNome]);
@@ -44,15 +55,15 @@ export default function Curso(){
         await services.excluirCurso(id);
         CarregarCursos();
     }
-    
-    
+
+
     async function handleSubmit() {
-        if(cursoEditando){
-            await services.editarCurso(parseInt(cursoEditando), {nome: nomeCurso, periodo: periodoCurso});
+        if (cursoEditando) {
+            await services.editarCurso(parseInt(cursoEditando), { nome: nomeCurso, periodo: periodoCurso });
             setCursoEditando("");
         }
         else {
-            await services.cadastrarCurso({nome: nomeCurso, periodo: periodoCurso});
+            await services.cadastrarCurso({ nome: nomeCurso, periodo: periodoCurso });
         }
         CarregarCursos();
         setNomeCurso("");
@@ -67,112 +78,119 @@ export default function Curso(){
     }
 
     useEffect(() => {
-    CarregarCursos();
+        CarregarCursos();
     }, []);
 
 
     return <>
-     <div className={styles.Header}>
+        <div className={styles.Header}>
             <div className={styles.headerContent}>
-                <GraduationCap size={32}/>
+                <GraduationCap size={32} />
                 <div className={styles.headerText}>
                     <h1>Cadastrar novo curso</h1>
-                    <h3>Gerenciar cursos</h3>    
+                    <h3>Gerenciar cursos</h3>
                 </div>
             </div>
         </div>
 
-    <div className={styles.container}>
-       
-        <div className={styles.cadastrarCurso}>
-            <div className={styles.cadastrarCursoHeader}>
-                <h1>Cadastrar novo Curso</h1>
-            </div>
+        <div className={styles.container}>
 
-            <div className={styles.cadastrarCursoBody}>
-                <div className={styles.inputGroup}> 
-                    <p>Nome do Curso</p>
-                    <input type="text" value={nomeCurso} onChange={(e) => setNomeCurso(e.target.value)} className={styles.input} placeholder="Digite o nome do curso"/>
+            <div className={styles.cadastrarCurso}>
+                <div className={styles.cadastrarCursoHeader}>
+                    <h1>Cadastrar novo Curso</h1>
                 </div>
-                <div className={styles.inputGroup}>
-                    <p>Período</p>
-                    <select value={periodoCurso} onChange={(e) => setPeriodoCurso(e.target.value)}  className={styles.input}>
-                        <option value="">Selecione o período</option>
-                        <option value="MATUTINO">Manhã</option>
-                        <option value="VESPERTINO">Tarde</option>
-                        <option value="NOTURNO">Noite</option>
-                        <option value="INTEGRAL">Integral</option>
-                    </select>
-                </div>
-            </div>
-            <div className={styles.cadastrarCursoFooter}>
-                <button className={styles.button} onClick={handleSubmit}>{ cursoEditando ? "Atualizar Curso" : "+ Inserir Curso" }</button>
-            </div>
-        </div>
 
-        <div className={styles.listarCursos}>
-            <div className={styles.listarCursosHeader}>
-                <h1>Lista de cursos</h1>
-            </div>
-
-            <div className={styles.listarCursosBody}>
-                <div className={styles.listarCursosSearch}>
-                    <div className={styles.searchInput}>
-                        
-                        <input type="text" onChange={(e) => setFiltroNome(e.target.value)} placeholder="Pesquisar curso"/>
-                        <button onClick={() => setMostrarFiltros(!mostrarFiltros)}><Funnel size={18}/>Filtrar</button>
-                        {
-                            mostrarFiltros && (
-                                <div className={styles.filtrosContainer}>
-                                    <button onClick={() => setFiltroPeriodo("MATUTINO")}>
-                                        Manhã
-                                    </button>
-
-                                    <button onClick={() => setFiltroPeriodo("VESPERTINO")}>
-                                        Tarde
-                                    </button>
-
-                                    <button onClick={() => setFiltroPeriodo("NOTURNO")}>
-                                        Noite
-                                    </button>
-
-                                    <button onClick={() => setFiltroPeriodo("INTEGRAL")}>
-                                        Integral
-                                    </button>
-
-                                    <button onClick={() => setFiltroPeriodo("")}>
-                                        Todos
-                                    </button>
-                                </div>
-                            )
-                        }
+                <div className={styles.cadastrarCursoBody}>
+                    <div className={styles.inputGroup}>
+                        <p>Nome do Curso</p>
+                        <input type="text" value={nomeCurso} onChange={(e) => setNomeCurso(e.target.value)} className={styles.input} placeholder="Digite o nome do curso" />
+                    </div>
+                    <div className={styles.inputGroup}>
+                        <p>Período</p>
+                        <select value={periodoCurso} onChange={(e) => setPeriodoCurso(e.target.value)} className={styles.input}>
+                            <option value="">Selecione o período</option>
+                            <option value="MATUTINO">Manhã</option>
+                            <option value="VESPERTINO">Tarde</option>
+                            <option value="NOTURNO">Noite</option>
+                            <option value="INTEGRAL">Integral</option>
+                        </select>
                     </div>
                 </div>
+                <div className={styles.cadastrarCursoFooter}>
+                    <button className={styles.button} onClick={handleSubmit}>{cursoEditando ? "Atualizar Curso" : "+ Inserir Curso"}</button>
+                </div>
+            </div>
 
-                <table className={styles.table}>
-                    <thead> 
-                        <tr >
-                            <th className={styles.tableHeader}>CURSO</th>
-                            <th className={styles.tableHeader}>PERÍODO</th>
-                            <th className={styles.tableHeader}>AÇÕES</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {
-                       cursos.map( curso => (
-                        <CursoRow 
-                            key={curso.id}
-                            nome={curso.nome}
-                            periodo={curso.periodo}
-                            onEdit={() => handleEdit(curso.id)}
-                            onDelete={() => handleDelete(curso.id)}
-                        />
-                       ))
-                    }
-                    </tbody>
-                </table>
+            <div className={styles.listarCursos}>
+                <div className={styles.listarCursosHeader}>
+                    <h1>Lista de cursos</h1>
+                </div>
+
+                <div className={styles.listarCursosBody}>
+                    <div className={styles.listarCursosSearch}>
+                        <div className={styles.searchInput}>
+                            <input
+                                type="text"
+                                onChange={(e) => setFiltroNome(e.target.value)}
+                                placeholder="Pesquisar curso"
+                            />
+
+                            <button onClick={() => setMostrarFiltros(!mostrarFiltros)}>
+                                <Funnel size={18} />
+                                Filtrar
+                            </button>
+                            {
+                                mostrarFiltros && (
+                                    <div className={styles.filtrosContainer}>
+                                        <button onClick={() => handleFiltroPeriodo("MATUTINO")}>
+                                            Manhã
+                                        </button>
+
+                                        <button onClick={() => handleFiltroPeriodo("VESPERTINO")}>
+                                            Tarde
+                                        </button>
+
+                                        <button onClick={() => handleFiltroPeriodo("NOTURNO")}>
+                                            Noite
+                                        </button>
+
+                                        <button onClick={() => handleFiltroPeriodo("INTEGRAL")}>
+                                            Integral
+                                        </button>
+
+                                        <button onClick={() => handleFiltroPeriodo("")}>
+                                            Todos
+                                        </button>
+                                    </div>
+                                )
+                            }
+                        </div>
+                    </div>
+
+                    <table className={styles.table}>
+                        <thead>
+                            <tr >
+                                <th className={styles.tableHeader}>CURSO</th>
+                                <th className={styles.tableHeader}>PERÍODO</th>
+                                <th className={styles.tableHeader}>AÇÕES</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                cursos.map(curso => (
+                                    <CursoRow
+                                        key={curso.id}
+                                        nome={curso.nome}
+                                        periodo={curso.periodo}
+                                        onEdit={() => handleEdit(curso.id)}
+                                        onDelete={() => handleDelete(curso.id)}
+                                    />
+                                ))
+                            }
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     </>
 }

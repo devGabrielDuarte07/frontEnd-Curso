@@ -130,6 +130,53 @@ body{
     align-items: center;
     gap: 10px;
     width: 100%;
+    position: relative;
+}
+
+.filtrosContainer{
+    position: absolute;
+
+    display: flex;
+    flex-direction: row;
+
+    gap: 8px;
+
+    margin-top: 115px;
+    margin-left: 75%;
+    padding: 12px;
+
+    background: white;
+
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+
+    box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+
+    z-index: 10;
+
+    min-width: 180px;
+}
+
+.filtrosContainer button{
+    border: none;
+
+    background: #f3f4f6;
+
+    padding: 10px 14px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 14px;
+    font-weight: 500;
+
+    transition: 0.2s;
+}
+
+.filtrosContainer button:hover{
+    background: #2563eb;
+    color: white;
 }
 
 .searchInput input{

@@ -1,21 +1,255 @@
-.body{
+* {
+  box-sizing: border-box;
+}
+
+body{
     margin: 0;
     padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 75px;
+    padding: 20px;
+}
+
+/* Header */
 
 .Header{
     width: 100%;
-    height: 100px;
     background: linear-gradient(90deg, #1E78FF 0%, #0B64F5 100%);
     color: white;
 }
 
+.headerContent{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 20px;
+}
+
+.headerText h1{
+    margin: 0;
+    font-size: 24px;
+}
+
+.headerText h3{
+    margin: 0;
+    font-size: 16px;
+    color: #e0e0e0;
+}
+/* Cadastrar Curso */
+
 .cadastrarCurso{
-    padding-left: 20px;
-    padding-right: 30px;
     width: 90%;
-    height: 200px;
     background-color: #ffffff5d;
     border-radius: 10px;
     box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+}
+
+.cadastrarCursoHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.cadastrarCursoBody{
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.button{
+    padding: 10px 20px;
+    background-color: #1E78FF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cadastrarCursoFooter{
+    display: flex;
+    justify-content: flex-end;
+    padding: 20px;
+}
+
+.input{
+    height: 40px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    padding: 0 10px;
+    font-size: 16px;
+}
+
+.inputGroup{
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    width: 100%;
+}
+
+/* Listar Cursos */
+
+.listarCursos{
+    width: 90%;
+    background-color: #ffffff5d;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px rgba(15, 23, 42, 0.08);
+}
+
+.listarCursosBody{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px;
+}
+
+.listarCursosHeader{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+}
+
+.listarCursosHeader h1{
+    margin: 0;
+}
+
+.listarCursosSearch{
+    width: 100%;
+}
+
+.searchInput{
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+.searchInput input{
+    flex: 1;
+    height: 42px;
+    border: 1px solid #d1d5db;
+    border-radius: 8px;
+    padding: 0 15px;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.3s;
+}
+
+.searchInput input:focus{
+    border-color: #1E78FF;
+}
+
+.searchInput button{
+    height: 42px;
+    padding: 0 18px;
+    border: none;
+    border-radius: 8px;
+    background-color: #1E78FF;
+    color: white;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: background-color 0.3s;
+}
+
+.searchInput button:hover{
+    background-color: #0057e4;
+}
+.table{
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableHeader{
+    font-weight: bold;
+    background-color: #f0f0f0;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 100px;
+    
+}
+
+.tableRow{
+    border-bottom: 2px solid #eee;
+    transition: background-color 0.3s;
+    
+}
+
+.tableRow:hover{
+    background-color: #c0bfbf;
+}
+
+.table th{
+    text-align: center;
+    padding: 10px;
+}
+
+.table td
+{
+    padding: 20px 20px;
+}
+
+.rowCurso{
+    text-align: left;
+}
+
+.rowPeriodo{
+    text-align: center;
+}
+
+.rowAcoes{
+    text-align: end;
+}
+
+.actionButtons{
+    display: flex;
+    gap: 20px;
+    justify-content: flex-end;
+    align-items: center;
+}
+.btnEditar, .btnExcluir{
+    height: 40px;
+    padding: 5px 10px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    gap: 5px;
+    align-items: center;
+    transition: background-color 0.3s;
+}
+
+.btnEditar{
+    background-color: #1E78FF;
+    color: white;
+}
+
+.btnEditar:hover{
+    background-color: #0057e4;
+}
+
+.btnExcluir{
+    background-color: #FF4D4F;
+    color: white;
+}
+
+.btnExcluir:hover{
+    background-color: #dd1e1e;
+}
+
+.badge{
+    background-color: #DBEAFE;
+    color: #1D4ED8;
+    padding: 5px 10px;
+    border-radius: 10px;
+    display: inline-block;
+    border: 1px solid #1D4ED8;
 }
